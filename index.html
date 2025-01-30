@@ -1,0 +1,28 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Typicalphobia</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.module.js"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="game-container">
+        <div id="crosshair"></div>
+        <div id="interaction-prompt">
+            Haz clic para comenzar. Usa WASD para moverte. Ratón para mirar. Presiona F para linterna. Presiona T para vista en tercera persona.
+        </div>
+        <div id="inventory"></div>
+        <div id="health-bar"></div>
+        <div id="battery-indicator">🔋 Batería: 100%</div>
+        <div id="debug-info"></div>
+        <div id="game-version">Typicalphobia Versión Alpha 1.0</div>
+    </div>
+    <script type="module" src="game.js"></script>
+</body>
+</html>
