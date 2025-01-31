@@ -1,0 +1,334 @@
+/* Base Game Styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+  background-color: #000;
+  color: #fff;
+}
+
+#game-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Crosshair */
+#crosshair {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border: 2px solid white;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Interaction Prompt */
+#interaction-prompt {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
+  z-index: 1000;
+}
+
+/* Mobile Controls */
+#mobile-controls {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 1000;
+}
+
+#movement-dpad {
+  display: grid;
+  grid-template-areas: 
+    ". up ."
+    "left . right"
+    ". down .";
+  gap: 10px;
+}
+
+.dpad-button {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid white;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+#move-forward { grid-area: up; }
+#move-left { grid-area: left; }
+#move-right { grid-area: right; }
+#move-backward { grid-area: down; }
+
+#action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#mobile-flashlight, 
+#mobile-sprint {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid white;
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* Debug Info */
+#debug-info {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px;
+  font-size: 12px;
+  z-index: 1000;
+}
+
+/* Battery Indicator */
+#battery-indicator {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.battery-icon {
+  display: flex;
+  gap: 3px;
+}
+
+.battery-bar {
+  width: 15px;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.battery-bar.active {
+  background-color: white;
+}
+
+.battery-bar.warning {
+  background-color: orange;
+}
+
+.battery-bar.critical {
+  background-color: red;
+}
+
+/* Version Display */
+#game-version {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 10px;
+}
+
+/* Sidebar Menus (Developer and Builder) */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  overflow-y: auto;
+  z-index: 2000;
+}
+
+.dev-menu-content {
+  color: white;
+}
+
+.dev-section {
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 10px;
+}
+
+.dev-section button, 
+.dev-section select, 
+.dev-section input {
+  width: 100%;
+  margin: 5px 0;
+  padding: 10px;
+  background-color: rgba(50, 50, 50, 0.8);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+.warning-button {
+  background-color: rgba(255, 0, 0, 0.3);
+}
+
+/* Start Menu Styles */
+#start-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  overflow: hidden;
+}
+
+.start-menu-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://files.catbox.moe/500e6l.avif');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.1;
+  filter: grayscale(100%) blur(2px);
+  z-index: 1;
+}
+
+.start-menu-content {
+  position: relative;
+  text-align: center;
+  z-index: 2;
+  color: white;
+  max-width: 500px;
+  padding: 40px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  box-shadow: 0 0 50px rgba(255, 0, 0, 0.3);
+}
+
+.game-title {
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  color: red;
+  text-shadow: 
+      0 0 10px rgba(255, 0, 0, 0.5),  
+      -2px -2px 0 rgba(255, 0, 0, 0.3),  
+      2px 2px 0 rgba(255, 0, 0, 0.3),   
+      -2px 2px 0 rgba(255, 0, 0, 0.3),  
+      2px -2px 0 rgba(255, 0, 0, 0.3);  
+  letter-spacing: 3px;
+  transform: skew(-5deg);  
+  animation: title-flicker 2s infinite alternate;
+}
+
+@keyframes title-flicker {
+  0% { opacity: 0.8; }
+  100% { opacity: 1; }
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.menu-buttons button {
+  background-color: rgba(30, 30, 30, 0.8);
+  color: white;
+  border: 2px solid red;
+  padding: 15px;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: 
+      background-color 0.3s ease, 
+      transform 0.2s ease, 
+      border-color 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.menu-buttons button:hover {
+  background-color: rgba(50, 0, 0, 0.9);
+  border-color: white;
+  transform: scale(1.05);
+}
+
+.menu-buttons button:active {
+  transform: scale(0.95);
+}
+
+#settings-panel, 
+#credits-panel {
+  margin-top: 20px;
+}
+
+.settings-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+}
+
+.settings-group label {
+  margin-right: 20px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#in-game-menu {
+  background-color: rgba(0, 0, 0, 0.9);
+  border-left: 2px solid rgba(255, 0, 0, 0.5);
+}
+
+#in-game-menu .dev-menu-content {
+  color: white;
+}
+
+#in-game-menu button {
+  background-color: rgba(30, 30, 30, 0.8);
+  color: white;
+  border: 2px solid rgba(255, 0, 0, 0.5);
+  padding: 15px;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: 
+      background-color 0.3s ease, 
+      transform 0.2s ease, 
+      border-color 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  width: 100%;
+}
+
+#in-game-menu button:hover {
+  background-color: rgba(50, 0, 0, 0.9);
+  border-color: white;
+  transform: scale(1.05);
+}
+
+#in-game-menu button:active {
+  transform: scale(0.95);
+}

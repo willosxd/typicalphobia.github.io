@@ -1,0 +1,169 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Typicalphobia</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.module.js"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="start-menu">
+        <div class="start-menu-overlay"></div>
+        <div class="start-menu-content">
+            <h1 class="game-title">TYPICALPHOBIA</h1>
+            <div class="menu-buttons">
+                <button id="start-game-btn">COMENZAR</button>
+                <button id="settings-btn">CONFIGURACIONES</button>
+                <button id="credits-btn">CRÉDITOS</button>
+            </div>
+            <div id="settings-panel" class="hidden">
+                <h2>Configuraciones</h2>
+                <div class="settings-group">
+                    <label>Volumen</label>
+                    <input type="range" min="0" max="100" value="50">
+                </div>
+                <div class="settings-group">
+                    <label>Sensibilidad</label>
+                    <input type="range" min="1" max="10" value="5">
+                </div>
+                <button id="back-from-settings">VOLVER</button>
+            </div>
+            <div id="credits-panel" class="hidden">
+                <h2>Créditos</h2>
+                <p>Desarrollado por: El Equipo de Typicalphobia</p>
+                <p>Diseño: Desarrollador Principal</p>
+                <p>Música: Música de Terror Generada</p>
+                <button id="back-from-credits">VOLVER</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-container" class="hidden">
+        <div id="crosshair"></div>
+        <div id="interaction-prompt">
+            Haz clic para comenzar. Usa WASD para moverte. Ratón para mirar. Presiona F para luz personal.
+        </div>
+        
+        <!-- Mobile Controls -->
+        <div id="mobile-controls" class="hidden">
+            <div id="movement-dpad">
+                <div class="dpad-button" id="move-forward">▲</div>
+                <div class="dpad-button" id="move-left">◀</div>
+                <div class="dpad-button" id="move-right">▶</div>
+                <div class="dpad-button" id="move-backward">▼</div>
+            </div>
+            <div id="action-buttons">
+                <button id="mobile-flashlight">🔦</button>
+                <button id="mobile-sprint">⚡</button>
+            </div>
+        </div>
+
+        <div id="developer-menu" class="hidden sidebar">
+            <div class="dev-menu-content">
+                <h2>🛠️ Menú de Desarrollador</h2>
+                <div class="dev-section">
+                    <h3>Controles de Depuración</h3>
+                    <button id="toggle-hitbox">Mostrar Hitboxes</button>
+                    <button id="spawn-monster">Generar Monstruo</button>
+                    <button id="reset-position">Reiniciar Posición</button>
+                </div>
+                <div class="dev-section">
+                    <h3>Estado del Juego</h3>
+                    <div id="dev-game-stats"></div>
+                </div>
+                <div class="dev-section">
+                    <h3>Configuración de Rendimiento</h3>
+                    <label>
+                        Nivel de Detalle:
+                        <select id="detail-level">
+                            <option value="low">Bajo</option>
+                            <option value="medium" selected>Medio</option>
+                            <option value="high">Alto</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="dev-section">
+                    <h3>Herramientas de Experimentación</h3>
+                    <button id="toggle-noclip">Modo Sin Colisión</button>
+                    <button id="infinite-battery">Batería Infinita</button>
+                    <button id="builder-mode">Modo Builder</button>
+                    <button id="fill-map-lights">Llenar Mapa con Luces</button>
+                    <button id="clear-all-lights">Eliminar Todas las Luces</button>
+                </div>
+                <div class="dev-section">
+                    <h3>Entidad Especial</h3>
+                    <button id="teleport-to-entity">Teletransportarse a Entidad Negra</button>
+                </div>
+                <div class="dev-section">
+                    <h3>Batería</h3>
+                    <button id="recharge-battery">Recargar Batería</button>
+                </div>
+                <div class="dev-section">
+                    <h3>Configuración Global</h3>
+                    <button id="reset-all-settings" class="warning-button">Restablecer Todos los Ajustes</button>
+                </div>
+                <button id="close-dev-menu">Cerrar Menú</button>
+            </div>
+        </div>
+        <div id="builder-menu" class="hidden sidebar">
+            <div class="dev-menu-content">
+                <h2>🏗️ Modo Builder</h2>
+                <div class="dev-section">
+                    <h3>Objetos</h3>
+                    <select id="object-type">
+                        <option value="cube">Cubo</option>
+                        <option value="sphere">Esfera</option>
+                        <option value="light">Luz Puntual</option>
+                        <option value="directional-light">Luz Direccional</option>
+                    </select>
+                    <div class="color-picker-section">
+                        <label>Color:</label>
+                        <input type="color" id="object-color" value="#ffffff">
+                    </div>
+                    <div class="size-section">
+                        <label>Tamaño: <span id="size-value">1</span></label>
+                        <input type="range" id="object-size" min="0.1" max="5" step="0.1" value="1">
+                    </div>
+                    <button id="place-object">Colocar Objeto</button>
+                </div>
+                <div class="dev-section">
+                    <h3>Herramientas</h3>
+                    <button id="delete-last-object">Eliminar Último Objeto</button>
+                    <button id="clear-all-objects">Limpiar Todos los Objetos</button>
+                </div>
+                <button id="close-builder-menu">Cerrar Modo Builder</button>
+            </div>
+        </div>
+        <div id="in-game-menu" class="hidden sidebar">
+            <div class="dev-menu-content">
+                <h2>🎮 Menú de Juego</h2>
+                <div class="dev-section">
+                    <h3>Opciones Principales</h3>
+                    <button id="resume-game">Continuar</button>
+                    <button id="settings-in-game">Configuraciones</button>
+                    <button id="exit-to-main-menu">Salir al Menú Principal</button>
+                </div>
+            </div>
+        </div>
+        <div id="inventory"></div>
+        <div id="health-bar"></div>
+        <div id="debug-info"></div>
+        <div id="battery-indicator">
+            <div class="battery-icon">
+                <div class="battery-bar"></div>
+                <div class="battery-bar"></div>
+                <div class="battery-bar"></div>
+                <div class="battery-bar"></div>
+            </div>
+        </div>
+        <div id="game-version">Typicalphobia Versión Alpha 1.2</div>
+    </div>
+    <script type="module" src="game.js"></script>
+</body>
+</html>
